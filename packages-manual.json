@@ -1,0 +1,12 @@
+[
+  {
+    "id": "nvidia-app",
+    "name": "NVIDIA App",
+    "page": "https://www.nvidia.com/en-us/software/nvidia-app/",
+    "version": "11.0.7.247",
+    "url": "https://us.download.nvidia.com/nvapp/client/11.0.7.247/NVIDIA_app_v11.0.7.247.exe",
+    "installArgs": "-s",
+    "postInstall": "Sign in on first launch.",
+    "lastUpdated": "2026-05-07"
+  }
+]
