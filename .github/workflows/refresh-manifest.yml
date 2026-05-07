@@ -1,0 +1,31 @@
+name: Refresh manifest
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'   # 1st of each month at 00:00 UTC
+  workflow_dispatch:        # allow manual run from the Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Update-Manifest.ps1
+        shell: pwsh
+        run: ./Update-Manifest.ps1
+
+      - name: Open PR if manifest changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'Refresh manifest'
+          commit-message: 'Refresh manifest (auto)'
+          branch: refresh-manifest
+          delete-branch: true
+          body: |
+            Automated monthly refresh of `packages-manual.json` and the README table.
+            Review the version diff before merging.
