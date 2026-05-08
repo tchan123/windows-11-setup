@@ -1,5 +1,7 @@
 ﻿# windows-11-setup
 
+**Download:** [`windows-11-setup.zip`](https://github.com/tchan123/windows-11-setup/releases/latest/download/windows-11-setup.zip) — extract and run `Setup-Windows11.ps1`. Refreshed monthly.
+
 Post-install setup for Windows 11. Most apps come from `winget` (`packages.json`); apps not in winget are tracked in `packages-manual.json` and refreshed periodically by `Update-Manifest.ps1`.
 
 ## Scripts
