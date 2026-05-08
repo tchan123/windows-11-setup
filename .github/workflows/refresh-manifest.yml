@@ -13,14 +13,14 @@ jobs:
   refresh:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run Update-Manifest.ps1
         shell: pwsh
         run: ./Update-Manifest.ps1
 
       - name: Open PR if manifest changed
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           title: 'Refresh manifest'
           commit-message: 'Refresh manifest (auto)'
