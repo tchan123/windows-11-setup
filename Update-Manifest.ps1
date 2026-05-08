@@ -3,9 +3,14 @@ param()
 
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
-$manifest = Join-Path $root 'packages-manual.json'
-$readme   = Join-Path $root 'README.md'
-$packages = Get-Content $manifest | ConvertFrom-Json
+$manualManifest = Join-Path $root 'packages-manual.json'
+$wingetManifest = Join-Path $root 'packages.json'
+$wingetMetaFile = Join-Path $root 'winget-meta.json'
+$readme         = Join-Path $root 'README.md'
+
+$manualPackages = Get-Content $manualManifest | ConvertFrom-Json
+$wingetPackages = @((Get-Content $wingetManifest | ConvertFrom-Json).Sources[0].Packages)
+$wingetMeta     = Get-Content $wingetMetaFile | ConvertFrom-Json
 
 function Update-NvidiaApp($pkg) {
     $page    = (Invoke-WebRequest $pkg.page -UseBasicParsing).Content
@@ -13,6 +18,7 @@ function Update-NvidiaApp($pkg) {
     if (-not $version) { throw "Could not parse NVIDIA app version from $($pkg.page)" }
     $pkg.version = $version
     $pkg.url     = "https://us.download.nvidia.com/nvapp/client/$version/NVIDIA_app_v$version.exe"
+    $pkg | Add-Member -NotePropertyName installerName -NotePropertyValue (Split-Path $pkg.url -Leaf) -Force
 }
 
 $updaters = @{
@@ -21,7 +27,7 @@ $updaters = @{
 
 $today = (Get-Date).ToString('yyyy-MM-dd')
 
-foreach ($pkg in $packages) {
+foreach ($pkg in $manualPackages) {
     if (-not $updaters.ContainsKey($pkg.id)) { continue }
     $before = $pkg.version
     & $updaters[$pkg.id] $pkg | Out-Null
@@ -33,14 +39,25 @@ foreach ($pkg in $packages) {
     }
 }
 
-$packages | ConvertTo-Json -Depth 10 | Set-Content $manifest -Encoding utf8
+ConvertTo-Json -InputObject @($manualPackages) -Depth 10 | Set-Content $manualManifest -Encoding utf8
 
-# Rebuild README table between markers
-$rows = $packages | ForEach-Object {
-    $domain = ([uri]$_.page).Host -replace '^www\.',''
-    "| {0} | {1} | {2} |" -f $_.name, $domain, $_.lastUpdated
+# Rebuild README table between markers — combined manual + winget rows
+$rows = @()
+foreach ($pkg in $manualPackages) {
+    $domain = ([uri]$pkg.page).Host -replace '^www\.',''
+    $rows += "| {0} | {1} | {2} | direct | {3} |" -f $pkg.name, $domain, $pkg.lastUpdated, $pkg.installerName
 }
-$header = "| Installer | Domain | Last updated |`n| --- | --- | --- |"
+foreach ($p in $wingetPackages) {
+    $id   = $p.PackageIdentifier
+    $meta = $wingetMeta.$id
+    if (-not $meta) {
+        Write-Warning "No winget-meta.json entry for $id - skipping README row"
+        continue
+    }
+    $rows += "| {0} | {1} | {2} | winget | {3} |" -f $meta.name, $meta.domain, $meta.lastUpdated, $meta.installerName
+}
+
+$header = "| Installer | Domain | Last updated | Source | Installer name |`n| --- | --- | --- | --- | --- |"
 $table  = ($header, ($rows -join "`n")) -join "`n"
 
 $content = Get-Content $readme -Raw

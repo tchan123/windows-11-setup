@@ -1,0 +1,8 @@
+{
+  "Blizzard.BattleNet": {
+    "name": "Battle.net",
+    "domain": "battle.net",
+    "installerName": "Battle.net-Setup.exe",
+    "lastUpdated": "2026-05-08"
+  }
+}
