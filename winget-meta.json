@@ -10,5 +10,11 @@
     "domain": "msi.com",
     "installerName": "[Guru3D]-MSIAfterburnerSetup466Build16757.zip",
     "lastUpdated": "2026-05-20"
+  },
+  "Mozilla.Firefox": {
+    "name": "Mozilla Firefox",
+    "domain": "firefox.com",
+    "installerName": "Firefox Setup 151.0.exe",
+    "lastUpdated": "2026-05-20"
   }
 }

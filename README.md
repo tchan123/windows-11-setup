@@ -25,6 +25,7 @@ Post-install setup for Windows 11. Most apps come from `winget` (`packages.json`
 | Sizer | brianapps.net | 2026-05-20 | direct | sizer4_dev640.msi |
 | Battle.net | battle.net | 2026-05-08 | winget | Battle.net-Setup.exe |
 | MSI Afterburner | msi.com | 2026-05-20 | winget | [Guru3D]-MSIAfterburnerSetup466Build16757.zip |
+| Mozilla Firefox | firefox.com | 2026-05-20 | winget | Firefox Setup 151.0.exe |
 <!-- end: manifest-table -->
 
 
