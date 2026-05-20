@@ -2,11 +2,11 @@
     {
         "app": "Sizer",
         "source": "config/sizer.xml",
-        "dest": "%APPDATA%\\Sizer4\\sizer.xml"
+        "dest": "C:\\Users\\thomas\\AppData\\Roaming\\Sizer4\\sizer.xml"
     },
     {
         "app": "MSI Afterburner",
-        "source": "",
-        "dest": ""
+        "source": "config/MSIAfterburner.cfg",
+        "dest": "C:\\Program Files (x86)\\MSI Afterburner\\Profiles\\MSIAfterburner.cfg"
     }
 ]
