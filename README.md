@@ -22,6 +22,7 @@ Post-install setup for Windows 11. Most apps come from `winget` (`packages.json`
 | --- | --- | --- | --- | --- |
 | NVIDIA App | nvidia.com | 2026-05-07 | direct | NVIDIA_app_v11.0.7.247.exe |
 | 7-Zip | 7-zip.org | 2026-05-20 | direct | 7z2601-x64.exe |
+| Sizer | brianapps.net | 2026-05-20 | direct | sizer4_dev640.msi |
 | Battle.net | battle.net | 2026-05-08 | winget | Battle.net-Setup.exe |
 | MSI Afterburner | msi.com | 2026-05-20 | winget | [Guru3D]-MSIAfterburnerSetup466Build16757.zip |
 <!-- end: manifest-table -->

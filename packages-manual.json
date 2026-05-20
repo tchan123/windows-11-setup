@@ -20,5 +20,16 @@
         "postInstall":  "",
         "lastUpdated":  "2026-05-20",
         "installerName":  "7z2601-x64.exe"
+    },
+    {
+        "id":  "sizer",
+        "name":  "Sizer",
+        "page":  "https://www.brianapps.net/sizer4/",
+        "version":  "4.0",
+        "url":  "https://www.brianapps.net/sizer4/sizer4_dev640.msi",
+        "installArgs":  "/qn /norestart",
+        "postInstall":  "",
+        "lastUpdated":  "2026-05-20",
+        "installerName":  "sizer4_dev640.msi"
     }
 ]

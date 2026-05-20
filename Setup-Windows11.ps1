@@ -35,10 +35,16 @@ function Install-ManualPackages {
     $packages = Get-Content $file | ConvertFrom-Json
     foreach ($pkg in $packages) {
         Write-Host "Installing $($pkg.name) v$($pkg.version)" -ForegroundColor Cyan
-        $exe = Join-Path $env:TEMP "$($pkg.id).exe"
-        Invoke-WebRequest $pkg.url -OutFile $exe -UseBasicParsing
-        Start-Process $exe -ArgumentList $pkg.installArgs -Wait
-        Remove-Item $exe -Force
+        $ext = [System.IO.Path]::GetExtension(([uri]$pkg.url).AbsolutePath)
+        if (-not $ext) { $ext = '.exe' }
+        $installer = Join-Path $env:TEMP "$($pkg.id)$ext"
+        Invoke-WebRequest $pkg.url -OutFile $installer -UseBasicParsing
+        if ($ext -eq '.msi') {
+            Start-Process msiexec.exe -ArgumentList "/i `"$installer`" $($pkg.installArgs)" -Wait
+        } else {
+            Start-Process $installer -ArgumentList $pkg.installArgs -Wait
+        }
+        Remove-Item $installer -Force
     }
 }
 
