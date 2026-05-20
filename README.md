@@ -6,7 +6,7 @@ _Manifest last refreshed by the monthly cron: 2026-05-20_
 
 **Download:** [`windows-11-setup.zip`](https://github.com/tchan123/windows-11-setup/releases/latest/download/windows-11-setup.zip) — extract and run `Setup-Windows11.ps1`. Refreshed monthly.
 
-Post-install setup for Windows 11. Most apps come from `winget` (`packages.json`); apps not in winget are tracked in `packages-manual.json` and refreshed periodically by `Update-Manifest.ps1`.
+Post-install setup for Windows 11. Most apps come from `winget` (`packages.json`); apps not in winget are tracked in `packages-manual.json` and refreshed periodically by `Update-Manifest.ps1`. Once the installs finish, app config files in `config/` are deployed to their target paths per `config-files.json`.
 
 ## Scripts
 
@@ -18,14 +18,14 @@ Post-install setup for Windows 11. Most apps come from `winget` (`packages.json`
 ## Tracked installers
 
 <!-- begin: manifest-table -->
-| Installer | Domain | Last updated | Source | Installer name |
-| --- | --- | --- | --- | --- |
-| NVIDIA App | nvidia.com | 2026-05-07 | direct | NVIDIA_app_v11.0.7.247.exe |
-| 7-Zip | 7-zip.org | 2026-05-20 | direct | 7z2601-x64.exe |
-| Sizer | brianapps.net | 2026-05-20 | direct | sizer4_dev640.msi |
-| Battle.net | battle.net | 2026-05-08 | winget | Battle.net-Setup.exe |
-| MSI Afterburner | msi.com | 2026-05-20 | winget | [Guru3D]-MSIAfterburnerSetup466Build16757.zip |
-| Mozilla Firefox | firefox.com | 2026-05-20 | winget | Firefox Setup 151.0.exe |
+| Installer | Domain | Last updated | Source | Installer name | Config file |
+| --- | --- | --- | --- | --- | --- |
+| NVIDIA App | nvidia.com | 2026-05-07 | direct | NVIDIA_app_v11.0.7.247.exe | none |
+| 7-Zip | 7-zip.org | 2026-05-20 | direct | 7z2601-x64.exe | none |
+| Sizer | brianapps.net | 2026-05-20 | direct | sizer4_dev640.msi | sizer.xml |
+| Battle.net | battle.net | 2026-05-08 | winget | Battle.net-Setup.exe | none |
+| MSI Afterburner | msi.com | 2026-05-20 | winget | [Guru3D]-MSIAfterburnerSetup466Build16757.zip | pending |
+| Mozilla Firefox | firefox.com | 2026-05-20 | winget | Firefox Setup 151.0.exe | none |
 <!-- end: manifest-table -->
 
 

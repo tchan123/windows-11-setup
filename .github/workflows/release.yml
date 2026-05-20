@@ -16,11 +16,13 @@ jobs:
 
       - name: Build zip
         run: |
-          zip windows-11-setup.zip \
+          zip -r windows-11-setup.zip \
             Setup-Windows11.ps1 \
             packages.json \
             packages-manual.json \
             winget-meta.json \
+            config-files.json \
+            config/ \
             README.md
 
       - name: Compute tag

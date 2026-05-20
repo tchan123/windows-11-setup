@@ -1,0 +1,12 @@
+[
+    {
+        "app": "Sizer",
+        "source": "config/sizer.xml",
+        "dest": "%APPDATA%\\Sizer4\\sizer.xml"
+    },
+    {
+        "app": "MSI Afterburner",
+        "source": "",
+        "dest": ""
+    }
+]

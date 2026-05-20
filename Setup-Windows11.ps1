@@ -60,6 +60,29 @@ function Show-PostInstallSteps {
     }
 }
 
+function Deploy-ConfigFiles {
+    $file = Join-Path $root 'config-files.json'
+    if (-not (Test-Path $file)) { return }
+    $configs = @(Get-Content $file | ConvertFrom-Json)
+    foreach ($cfg in $configs) {
+        if (-not $cfg.source) {
+            Write-Host "No config file provided yet for $($cfg.app) - skipping" -ForegroundColor DarkGray
+            continue
+        }
+        $src = Join-Path $root $cfg.source
+        if (-not (Test-Path $src)) {
+            Write-Warning "Config source missing: $($cfg.source) - skipping $($cfg.app)"
+            continue
+        }
+        $dest    = [Environment]::ExpandEnvironmentVariables($cfg.dest)
+        $destDir = Split-Path $dest -Parent
+        if (-not (Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }
+        Write-Host "Deploying $($cfg.app) config -> $dest" -ForegroundColor Cyan
+        Copy-Item $src $dest -Force
+    }
+}
+
 Install-WingetPackages
 Install-ManualPackages
+Deploy-ConfigFiles
 Show-PostInstallSteps

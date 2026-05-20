@@ -6,6 +6,7 @@ $root = $PSScriptRoot
 $manualManifest = Join-Path $root 'packages-manual.json'
 $wingetManifest = Join-Path $root 'packages.json'
 $wingetMetaFile = Join-Path $root 'winget-meta.json'
+$configFile     = Join-Path $root 'config-files.json'
 $readme         = Join-Path $root 'README.md'
 
 $manualPackages = Get-Content $manualManifest | ConvertFrom-Json
@@ -41,11 +42,20 @@ foreach ($pkg in $manualPackages) {
 
 ConvertTo-Json -InputObject @($manualPackages) -Depth 10 | Set-Content $manualManifest -Encoding utf8
 
+# Map app name -> config-file cell: filename when ready, 'pending' when required but not yet provided
+$configMap = @{}
+if (Test-Path $configFile) {
+    foreach ($c in @(Get-Content $configFile | ConvertFrom-Json)) {
+        $configMap[$c.app] = if ($c.source) { Split-Path $c.source -Leaf } else { 'pending' }
+    }
+}
+
 # Rebuild README table between markers — combined manual + winget rows
 $rows = @()
 foreach ($pkg in $manualPackages) {
     $domain = ([uri]$pkg.page).Host -replace '^www\.',''
-    $rows += "| {0} | {1} | {2} | direct | {3} |" -f $pkg.name, $domain, $pkg.lastUpdated, $pkg.installerName
+    $config = if ($configMap.ContainsKey($pkg.name)) { $configMap[$pkg.name] } else { 'none' }
+    $rows += "| {0} | {1} | {2} | direct | {3} | {4} |" -f $pkg.name, $domain, $pkg.lastUpdated, $pkg.installerName, $config
 }
 foreach ($p in $wingetPackages) {
     $id   = $p.PackageIdentifier
@@ -54,10 +64,11 @@ foreach ($p in $wingetPackages) {
         Write-Warning "No winget-meta.json entry for $id - skipping README row"
         continue
     }
-    $rows += "| {0} | {1} | {2} | winget | {3} |" -f $meta.name, $meta.domain, $meta.lastUpdated, $meta.installerName
+    $config = if ($configMap.ContainsKey($meta.name)) { $configMap[$meta.name] } else { 'none' }
+    $rows += "| {0} | {1} | {2} | winget | {3} | {4} |" -f $meta.name, $meta.domain, $meta.lastUpdated, $meta.installerName, $config
 }
 
-$header = "| Installer | Domain | Last updated | Source | Installer name |`n| --- | --- | --- | --- | --- |"
+$header = "| Installer | Domain | Last updated | Source | Installer name | Config file |`n| --- | --- | --- | --- | --- | --- |"
 $table  = ($header, ($rows -join "`n")) -join "`n"
 
 $content = Get-Content $readme -Raw

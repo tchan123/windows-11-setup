@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sizer>
+	<options showIconInTray="1" startInSafeMode="0" adjustOppositeEdge="0" tooltipOption="1" hotKey="90" hotKeyModifiers="1" hotKeyExtended="0" useDwmExtendedFrames="1"/>
+	<menu>
+		<resize description="720" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1280" height="720" relocate="0" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1000 1440" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1000" height="1440" relocate="0" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1280 1440" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1280" height="1440" relocate="0" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1080" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1920" height="1080" relocate="0" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1080 left" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1920" height="1080" relocate="7" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1080 right" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1920" height="1080" relocate="9" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1080 up left" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1920" height="1080" relocate="1" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1080 up right" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1920" height="1080" relocate="3" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1440" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="2560" height="1440" relocate="8" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="2560 1600" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="2560" height="1600" relocate="0" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="1049 700" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="1049" height="700" relocate="0" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<resize description="700 1000" hotKey="0" hotKeyModifiers="0" hotKeyExtended="0" width="700" height="1000" relocate="0" monitor="-2" top="" left="" noresize="0" relocateCoords="1" allowOutsideBounds="0"/>
+		<configDialog/>
+	</menu>
+</sizer>
