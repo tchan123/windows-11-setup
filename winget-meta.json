@@ -4,5 +4,11 @@
     "domain": "battle.net",
     "installerName": "Battle.net-Setup.exe",
     "lastUpdated": "2026-05-08"
+  },
+  "Guru3D.Afterburner": {
+    "name": "MSI Afterburner",
+    "domain": "msi.com",
+    "installerName": "[Guru3D]-MSIAfterburnerSetup466Build16757.zip",
+    "lastUpdated": "2026-05-20"
   }
 }

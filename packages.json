@@ -4,7 +4,8 @@
   "Sources": [
     {
       "Packages": [
-        { "PackageIdentifier": "Blizzard.BattleNet" }
+        { "PackageIdentifier": "Blizzard.BattleNet" },
+        { "PackageIdentifier": "Guru3D.Afterburner" }
       ],
       "SourceDetails": {
         "Argument": "https://cdn.winget.microsoft.com/cache",
