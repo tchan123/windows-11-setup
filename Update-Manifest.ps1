@@ -42,11 +42,11 @@ foreach ($pkg in $manualPackages) {
 
 ConvertTo-Json -InputObject @($manualPackages) -Depth 10 | Set-Content $manualManifest -Encoding utf8
 
-# Map app name -> config-file cell: filename when ready, 'pending' when required but not yet provided
+# Map app name -> config-file cell: full destination path when set, 'pending' when required but not yet provided
 $configMap = @{}
 if (Test-Path $configFile) {
     foreach ($c in @(Get-Content $configFile | ConvertFrom-Json)) {
-        $configMap[$c.app] = if ($c.source) { Split-Path $c.source -Leaf } else { 'pending' }
+        $configMap[$c.app] = if ($c.dest) { $c.dest } else { 'pending' }
     }
 }
 
