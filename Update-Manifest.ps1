@@ -64,4 +64,10 @@ $content = Get-Content $readme -Raw
 $pattern = '(?s)<!-- begin: manifest-table -->.*?<!-- end: manifest-table -->'
 $replacement = "<!-- begin: manifest-table -->`n$table`n<!-- end: manifest-table -->"
 $updated = [regex]::Replace($content, $pattern, $replacement)
+
+# Stamp the last time this refresh ran (updated on every run, including the monthly cron)
+$refreshPattern = '(?s)<!-- begin: last-refresh -->.*?<!-- end: last-refresh -->'
+$refreshReplacement = "<!-- begin: last-refresh -->`n_Manifest last refreshed by the monthly cron: $($today)_`n<!-- end: last-refresh -->"
+$updated = [regex]::Replace($updated, $refreshPattern, $refreshReplacement)
+
 Set-Content $readme $updated -Encoding utf8
