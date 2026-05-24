@@ -14,16 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Build zip
+      - name: Build zips
         run: |
-          zip -r windows-11-setup.zip \
-            Setup-Windows11.ps1 \
+          zip Setup-Windows11.zip Setup-Windows11.ps1
+          zip -r manifest.zip \
             packages.json \
             packages-manual.json \
             winget-meta.json \
             config-files.json \
-            config/ \
-            README.md
+            config/
 
       - name: Compute tag
         id: tag
@@ -35,6 +34,6 @@ jobs:
           tag_name: ${{ steps.tag.outputs.tag }}
           name: ${{ steps.tag.outputs.tag }}
           files: |
-            windows-11-setup.zip
-            Setup-Windows11.ps1
+            Setup-Windows11.zip
+            manifest.zip
           fail_on_unmatched_files: true

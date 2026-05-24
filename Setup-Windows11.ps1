@@ -6,29 +6,19 @@ param(
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 
-# Bootstrap: if manifests aren't alongside the script, fetch the latest release zip and re-invoke from there.
+# Bootstrap: if the manifest isn't alongside the script, fetch it from the latest release into $root.
 if (-not (Test-Path (Join-Path $root 'packages.json'))) {
-    $workDir = Join-Path $env:USERPROFILE 'windows-11-setup'
-    $zipUrl  = 'https://github.com/tchan123/windows-11-setup/releases/latest/download/windows-11-setup.zip'
-    $zipPath = Join-Path $env:TEMP 'windows-11-setup.zip'
-
-    Write-Host "Bootstrapping into $workDir" -ForegroundColor Cyan
-    if (-not (Test-Path $workDir)) { New-Item -ItemType Directory -Path $workDir -Force | Out-Null }
-
+    $zipUrl  = 'https://github.com/tchan123/windows-11-setup/releases/latest/download/manifest.zip'
+    $zipPath = Join-Path $env:TEMP 'manifest.zip'
+    Write-Host "Downloading manifest from $zipUrl" -ForegroundColor Cyan
     Invoke-WebRequest $zipUrl -OutFile $zipPath -UseBasicParsing
-    Expand-Archive -Path $zipPath -DestinationPath $workDir -Force
+    Expand-Archive -Path $zipPath -DestinationPath $root -Force
     Remove-Item $zipPath -Force
-
-    $bootstrapped = Join-Path $workDir 'Setup-Windows11.ps1'
-    $argList = @("-NoProfile","-ExecutionPolicy","Bypass","-File",$bootstrapped)
-    if ($Unattended) { $argList += '-Unattended' }
-    & pwsh @argList
-    exit $LASTEXITCODE
 }
 
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     $args = if ($Unattended) { '-Unattended' } else { '' }
-    Start-Process pwsh -Verb RunAs -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File",$PSCommandPath,$args
+    Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File",$PSCommandPath,$args
     exit
 }
 
