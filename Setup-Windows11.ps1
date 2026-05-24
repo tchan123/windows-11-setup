@@ -5,6 +5,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
+$elevationTriggered = $false
+
+try {
 
 # Bootstrap: if the manifest isn't alongside the script, fetch it from raw GitHub into $root.
 if (-not (Test-Path (Join-Path $root 'packages.json'))) {
@@ -23,9 +26,11 @@ if (-not (Test-Path (Join-Path $root 'packages.json'))) {
 }
 
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    $args = if ($Unattended) { '-Unattended' } else { '' }
-    Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File",$PSCommandPath,$args
-    exit
+    $launchArgs = @("-NoProfile","-ExecutionPolicy","Bypass","-File",$PSCommandPath)
+    if ($Unattended) { $launchArgs += '-Unattended' }
+    Start-Process powershell -Verb RunAs -ArgumentList $launchArgs
+    $elevationTriggered = $true
+    return
 }
 
 function Install-WingetPackages {
@@ -96,3 +101,15 @@ Install-WingetPackages
 Install-ManualPackages
 Deploy-ConfigFiles
 Show-PostInstallSteps
+
+}
+catch {
+    Write-Host "`nERROR: $_" -ForegroundColor Red
+    Write-Host $_.ScriptStackTrace -ForegroundColor DarkGray
+}
+finally {
+    if (-not $elevationTriggered -and -not $Unattended) {
+        Write-Host "`nPress Enter to close." -ForegroundColor Yellow
+        try { [void][System.Console]::ReadLine() } catch { }
+    }
+}
