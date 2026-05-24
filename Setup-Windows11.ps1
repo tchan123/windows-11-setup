@@ -6,14 +6,20 @@ param(
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 
-# Bootstrap: if the manifest isn't alongside the script, fetch it from the latest release into $root.
+# Bootstrap: if the manifest isn't alongside the script, fetch it from raw GitHub into $root.
 if (-not (Test-Path (Join-Path $root 'packages.json'))) {
-    $zipUrl  = 'https://github.com/tchan123/windows-11-setup/releases/latest/download/manifest.zip'
-    $zipPath = Join-Path $env:TEMP 'manifest.zip'
-    Write-Host "Downloading manifest from $zipUrl" -ForegroundColor Cyan
-    Invoke-WebRequest $zipUrl -OutFile $zipPath -UseBasicParsing
-    Expand-Archive -Path $zipPath -DestinationPath $root -Force
-    Remove-Item $zipPath -Force
+    $rawBase = 'https://raw.githubusercontent.com/tchan123/windows-11-setup/main'
+    Write-Host "Downloading manifest from $rawBase" -ForegroundColor Cyan
+    foreach ($f in 'packages.json','packages-manual.json','winget-meta.json','config-files.json') {
+        Invoke-WebRequest "$rawBase/$f" -OutFile (Join-Path $root $f) -UseBasicParsing
+    }
+    foreach ($cfg in @(Get-Content (Join-Path $root 'config-files.json') | ConvertFrom-Json)) {
+        if (-not $cfg.source) { continue }
+        $dest = Join-Path $root $cfg.source
+        $dir  = Split-Path $dest -Parent
+        if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+        Invoke-WebRequest "$rawBase/$($cfg.source)" -OutFile $dest -UseBasicParsing
+    }
 }
 
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
