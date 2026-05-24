@@ -4,7 +4,7 @@
 _Manifest last refreshed by the monthly cron: 2026-05-20_
 <!-- end: last-refresh -->
 
-**Download:** [`windows-11-setup.zip`](https://github.com/tchan123/windows-11-setup/releases/latest/download/windows-11-setup.zip) — extract and run `Setup-Windows11.ps1`. Refreshed monthly.
+**Download:** [`Setup-Windows11.ps1`](https://github.com/tchan123/windows-11-setup/releases/latest/download/Setup-Windows11.ps1) — run it; it pulls the latest manifest into `%USERPROFILE%\windows-11-setup\` each run. Manifest is refreshed monthly.
 
 Post-install setup for Windows 11. Most apps come from `winget` (`packages.json`); apps not in winget are tracked in `packages-manual.json` and refreshed periodically by `Update-Manifest.ps1`. Once the installs finish, app config files in `config/` are deployed to their target paths per `config-files.json`.
 

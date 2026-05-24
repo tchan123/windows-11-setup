@@ -6,10 +6,24 @@ param(
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 
-# Best-effort manifest refresh before doing anything else.
-git -C $root pull --ff-only origin main
-if ($LASTEXITCODE -ne 0) {
-    Write-Warning "Could not refresh manifest from origin (git exit $LASTEXITCODE) - continuing with local copy"
+# Bootstrap: if manifests aren't alongside the script, fetch the latest release zip and re-invoke from there.
+if (-not (Test-Path (Join-Path $root 'packages.json'))) {
+    $workDir = Join-Path $env:USERPROFILE 'windows-11-setup'
+    $zipUrl  = 'https://github.com/tchan123/windows-11-setup/releases/latest/download/windows-11-setup.zip'
+    $zipPath = Join-Path $env:TEMP 'windows-11-setup.zip'
+
+    Write-Host "Bootstrapping into $workDir" -ForegroundColor Cyan
+    if (-not (Test-Path $workDir)) { New-Item -ItemType Directory -Path $workDir -Force | Out-Null }
+
+    Invoke-WebRequest $zipUrl -OutFile $zipPath -UseBasicParsing
+    Expand-Archive -Path $zipPath -DestinationPath $workDir -Force
+    Remove-Item $zipPath -Force
+
+    $bootstrapped = Join-Path $workDir 'Setup-Windows11.ps1'
+    $argList = @("-NoProfile","-ExecutionPolicy","Bypass","-File",$bootstrapped)
+    if ($Unattended) { $argList += '-Unattended' }
+    & pwsh @argList
+    exit $LASTEXITCODE
 }
 
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
