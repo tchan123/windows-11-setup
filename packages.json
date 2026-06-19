@@ -6,7 +6,8 @@
       "Packages": [
         { "PackageIdentifier": "Blizzard.BattleNet" },
         { "PackageIdentifier": "Guru3D.Afterburner" },
-        { "PackageIdentifier": "Mozilla.Firefox" }
+        { "PackageIdentifier": "Mozilla.Firefox" },
+        { "PackageIdentifier": "Logitech.GHUB" }
       ],
       "SourceDetails": {
         "Argument": "https://cdn.winget.microsoft.com/cache",

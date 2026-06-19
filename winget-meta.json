@@ -16,5 +16,11 @@
     "domain": "firefox.com",
     "installerName": "Firefox Setup 151.0.exe",
     "lastUpdated": "2026-05-20"
+  },
+  "Logitech.GHUB": {
+    "name": "Logitech G HUB",
+    "domain": "logitechg.com",
+    "installerName": "LGHUB_Installer.exe",
+    "lastUpdated": "2026-06-19"
   }
 }
