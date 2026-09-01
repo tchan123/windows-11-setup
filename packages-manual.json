@@ -1,35 +1,35 @@
-﻿[
-    {
-        "id":  "nvidia-app",
-        "name":  "NVIDIA App",
-        "page":  "https://www.nvidia.com/en-us/software/nvidia-app/",
-        "version":  "11.0.7.247",
-        "url":  "https://us.download.nvidia.com/nvapp/client/11.0.7.247/NVIDIA_app_v11.0.7.247.exe",
-        "installArgs":  "-s",
-        "postInstall":  "Sign in on first launch.",
-        "lastUpdated":  "2026-05-07",
-        "installerName":  "NVIDIA_app_v11.0.7.247.exe"
-    },
-    {
-        "id":  "7zip",
-        "name":  "7-Zip",
-        "page":  "https://www.7-zip.org/download.html",
-        "version":  "26.01",
-        "url":  "https://github.com/ip7z/7zip/releases/download/26.01/7z2601-x64.exe",
-        "installArgs":  "/S",
-        "postInstall":  "",
-        "lastUpdated":  "2026-05-20",
-        "installerName":  "7z2601-x64.exe"
-    },
-    {
-        "id":  "sizer",
-        "name":  "Sizer",
-        "page":  "https://www.brianapps.net/sizer4/",
-        "version":  "4.0",
-        "url":  "https://www.brianapps.net/sizer4/sizer4_dev640.msi",
-        "installArgs":  "/qn /norestart",
-        "postInstall":  "",
-        "lastUpdated":  "2026-05-20",
-        "installerName":  "sizer4_dev640.msi"
-    }
+[
+  {
+    "id": "nvidia-app",
+    "name": "NVIDIA App",
+    "page": "https://www.nvidia.com/en-us/software/nvidia-app/",
+    "version": "11.0.8.299",
+    "url": "https://us.download.nvidia.com/nvapp/client/11.0.8.299/NVIDIA_app_v11.0.8.299.exe",
+    "installArgs": "-s",
+    "postInstall": "Sign in on first launch.",
+    "lastUpdated": "2026-09-01",
+    "installerName": "NVIDIA_app_v11.0.8.299.exe"
+  },
+  {
+    "id": "7zip",
+    "name": "7-Zip",
+    "page": "https://www.7-zip.org/download.html",
+    "version": "26.01",
+    "url": "https://github.com/ip7z/7zip/releases/download/26.01/7z2601-x64.exe",
+    "installArgs": "/S",
+    "postInstall": "",
+    "lastUpdated": "2026-05-20",
+    "installerName": "7z2601-x64.exe"
+  },
+  {
+    "id": "sizer",
+    "name": "Sizer",
+    "page": "https://www.brianapps.net/sizer4/",
+    "version": "4.0",
+    "url": "https://www.brianapps.net/sizer4/sizer4_dev640.msi",
+    "installArgs": "/qn /norestart",
+    "postInstall": "",
+    "lastUpdated": "2026-05-20",
+    "installerName": "sizer4_dev640.msi"
+  }
 ]
